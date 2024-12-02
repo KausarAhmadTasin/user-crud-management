@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "./Navbar.css";
 
 const navLinks = [
   {
@@ -13,7 +14,7 @@ const navLinks = [
 
 const Navbar = () => {
   return (
-    <div className="w-full bg-[#111827] py-4 select-none">
+    <div className="w-full fixed top-0 bg-[#111827] z-40 py-6 select-none custom-navbar-shadow">
       <div className="container mx-auto flex justify-between items-center">
         <Link href={"/"}>
           <h1 className="text-3xl font-bold bg-gradient-to-r cursor-pointer from-indigo-400 via-purple-500 to-orange-500 text-transparent bg-clip-text active:scale-95">

@@ -1,15 +1,15 @@
-import { headers } from "next/headers";
 import Image from "next/image";
 
 const Banner = () => {
   return (
-    <section className="bg-gray-900 text-white py-16 px-6">
+    <section className="bg-gray-900 text-white py-14 px-6">
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">
         {/* Left Content */}
-        <div className="max-w-xl text-center lg:text-left">
+        <div className="max-w-xl text-center lg:text-left animate-fadeIn">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            <span className="font-thin leading-[7rem]">Welcome to Our</span>{" "}
-            <br />
+            <span className="font-thin block leading-[5.5rem]">
+              Welcome to Our
+            </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-yellow-500 to-indigo-500">
               User Management System
             </span>
@@ -36,13 +36,13 @@ const Banner = () => {
         </div>
 
         {/* Right Content */}
-        <div className="mt-10 lg:mt-0">
+        <div className="mt-10 lg:mt-0 animate-float">
           <Image
             src="https://i.ibb.co.com/mt0R7hV/Email.png"
             alt="User Management Illustration"
             className="w-full max-w-md mx-auto lg:max-w-lg"
-            width={300}
-            height={250}
+            width={400}
+            height={300}
           />
         </div>
       </div>
