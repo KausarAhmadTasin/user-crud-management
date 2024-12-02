@@ -1,10 +1,12 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserById } from "@/redux/features/user/usersSlice";
-import { useEffect } from "react";
+import { deleteUser, getUserById } from "@/redux/features/user/usersSlice";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import EditUserModal from "@/components/EditModal/EditModal";
 
 const UserDetails = ({ slug }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { user, isLoading, error } = useSelector((state) => state.usersR);
 
@@ -15,14 +17,11 @@ const UserDetails = ({ slug }) => {
   }, [dispatch, slug]);
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      dispatch(deleteUser(id));
-    }
+    dispatch(deleteUser(id));
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setCurrentUser(null);
+  const handleEdit = () => {
+    setModalOpen(true);
   };
 
   if (isLoading) {
@@ -147,6 +146,9 @@ const UserDetails = ({ slug }) => {
         </>
       ) : (
         <p className="text-center text-lg text-gray-400">User not found.</p>
+      )}
+      {isModalOpen && (
+        <EditUserModal user={user} onClose={() => setModalOpen(false)} />
       )}
     </div>
   );

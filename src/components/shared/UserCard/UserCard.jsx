@@ -1,17 +1,22 @@
 "use client";
+import EditUserModal from "@/components/EditModal/EditModal";
+import { deleteUser } from "@/redux/features/user/usersSlice";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserCard = ({ user }) => {
-  const handleEdit = () => {
-    console.log("Edit user:", user?._id);
-    // Add edit functionality here
+  const [isModalOpen, setModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { users, isLoading, error } = useSelector((state) => state.usersR);
+
+  const handleDelete = (id) => {
+    dispatch(deleteUser(id));
   };
 
-  const handleDelete = () => {
-    console.log("Delete user:", user?._id);
-    // Add delete functionality here
+  const handleEdit = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -28,7 +33,7 @@ const UserCard = ({ user }) => {
           />
         ) : (
           <div className="w-32 h-32 rounded-full bg-gray-700 flex items-center justify-center text-2xl font-bold text-gray-400 shadow-md">
-            {user?.name[0] || "U"}
+            {user?.name || "U"}
           </div>
         )}
       </div>
@@ -82,12 +87,15 @@ const UserCard = ({ user }) => {
 
         {/* Delete Button */}
         <button
-          onClick={handleDelete}
+          onClick={() => handleDelete(user._id)}
           className="px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-500 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none"
         >
           Delete
         </button>
       </div>
+      {isModalOpen && (
+        <EditUserModal user={user} onClose={() => setModalOpen(false)} />
+      )}
     </div>
   );
 };

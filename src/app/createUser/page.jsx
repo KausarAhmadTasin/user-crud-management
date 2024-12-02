@@ -1,85 +1,40 @@
 "use client";
 
 import { addUser } from "@/redux/features/user/usersSlice";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
 
 const UserForm = () => {
   const dispatch = useDispatch();
 
-  const { users, isLoading, error } = useSelector((state) => state.usersR);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    nationality: "",
-    skills: "",
-    nid: "",
-    address: "",
-    email: "",
-    phone: "",
-    website: "",
-    image: "",
-    educationalQualifications: {
-      degree: "",
-      university: "",
-      session: "",
-      cgpa: "",
-    },
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name.includes("educationalQualifications")) {
-      const field = name.split(".")[1];
-      setFormData((prevData) => ({
-        ...prevData,
-        educationalQualifications: {
-          ...prevData.educationalQualifications,
-          [field]: value,
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Ensure formData is correct before dispatching
-    dispatch(addUser(formData));
+    const form = e.target;
 
-    // Optionally reset the form fields
-    setFormData({
-      name: "",
-      age: "",
-      gender: "",
-      nationality: "",
-      skills: "",
-      nid: "",
-      address: "",
-      email: "",
-      phone: "",
-      website: "",
-      image: "",
+    const formData = {
+      name: form.name.value,
+      age: form.age.value,
+      gender: form.gender.value,
+      nationality: form.nationality.value,
+      skills: form.skills.value,
+      nid: form.nid.value,
+      address: form.address.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      website: form.website.value,
+      image: form.image.value,
       educationalQualifications: {
-        degree: "",
-        university: "",
-        session: "",
-        cgpa: "",
+        degree: form.degree.value,
+        university: form.university.value,
+        session: form.session.value,
+        cgpa: form.cgpa.value,
       },
-    });
-  };
+    };
 
-  useEffect(() => {
-    // Dispatch the action to fetch users when the component mounts
-    // dispatch(getUsers());  // Uncomment if you need to fetch users initially
-  }, [dispatch]);
+    dispatch(addUser(formData));
+    form.reset();
+  };
 
   return (
     <form
@@ -94,8 +49,6 @@ const UserForm = () => {
         <input
           type="text"
           name="name"
-          value={formData.name}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
           required
         />
@@ -106,8 +59,6 @@ const UserForm = () => {
         <input
           type="number"
           name="age"
-          value={formData.age}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
           required
         />
@@ -117,8 +68,6 @@ const UserForm = () => {
         <label className="block mb-2">Gender</label>
         <select
           name="gender"
-          value={formData.gender}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         >
           <option value="">Select Gender</option>
@@ -132,8 +81,6 @@ const UserForm = () => {
         <input
           type="text"
           name="nationality"
-          value={formData.nationality}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -143,8 +90,6 @@ const UserForm = () => {
         <input
           type="text"
           name="skills"
-          value={formData.skills}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -154,8 +99,6 @@ const UserForm = () => {
         <input
           type="text"
           name="nid"
-          value={formData.nid}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -165,8 +108,6 @@ const UserForm = () => {
         <input
           type="text"
           name="address"
-          value={formData.address}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -176,8 +117,6 @@ const UserForm = () => {
         <input
           type="email"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
           required
         />
@@ -188,8 +127,6 @@ const UserForm = () => {
         <input
           type="tel"
           name="phone"
-          value={formData.phone}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -199,8 +136,6 @@ const UserForm = () => {
         <input
           type="url"
           name="website"
-          value={formData.website}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -210,8 +145,6 @@ const UserForm = () => {
         <input
           type="url"
           name="image"
-          value={formData.image}
-          onChange={handleChange}
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -223,9 +156,7 @@ const UserForm = () => {
         <label className="block mb-2">Degree</label>
         <input
           type="text"
-          name="educationalQualifications.degree"
-          value={formData.educationalQualifications.degree}
-          onChange={handleChange}
+          name="degree"
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -234,9 +165,7 @@ const UserForm = () => {
         <label className="block mb-2">University</label>
         <input
           type="text"
-          name="educationalQualifications.university"
-          value={formData.educationalQualifications.university}
-          onChange={handleChange}
+          name="university"
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -245,9 +174,7 @@ const UserForm = () => {
         <label className="block mb-2">Session</label>
         <input
           type="text"
-          name="educationalQualifications.session"
-          value={formData.educationalQualifications.session}
-          onChange={handleChange}
+          name="session"
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
@@ -257,9 +184,7 @@ const UserForm = () => {
         <input
           type="number"
           step="0.01"
-          name="educationalQualifications.cgpa"
-          value={formData.educationalQualifications.cgpa}
-          onChange={handleChange}
+          name="cgpa"
           className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none"
         />
       </div>
