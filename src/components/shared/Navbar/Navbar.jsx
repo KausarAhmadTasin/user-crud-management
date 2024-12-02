@@ -3,7 +3,11 @@ import "./Navbar.css";
 
 const navLinks = [
   {
-    title: "Create Use",
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Create User",
     path: "createUser",
   },
   {

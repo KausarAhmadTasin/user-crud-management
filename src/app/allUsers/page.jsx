@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UserCard from "@/components/shared/UserCard/UserCard";
 import { getUsers } from "@/redux/features/user/usersSlice";
-
-const FeaturedUsers = () => {
+import UserCard from "@/components/shared/UserCard/UserCard";
+const AllUsersPage = () => {
   const dispatch = useDispatch();
-
   const { users, isLoading, error } = useSelector((state) => state.usersR);
 
   useEffect(() => {
@@ -14,9 +13,9 @@ const FeaturedUsers = () => {
   }, [dispatch]);
 
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto py-20 px-6">
       <h1 className="text-5xl text-slate-100 font-thin text-center mb-16">
-        Featured Users
+        All Users
       </h1>
 
       {isLoading ? (
@@ -24,7 +23,7 @@ const FeaturedUsers = () => {
       ) : error ? (
         <p className="text-center text-lg text-red-500">{error}</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {users.map((user) => (
             <UserCard key={user._id} user={user} />
           ))}
@@ -34,4 +33,4 @@ const FeaturedUsers = () => {
   );
 };
 
-export default FeaturedUsers;
+export default AllUsersPage;

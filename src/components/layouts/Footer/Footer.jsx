@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-8">
+    <footer className="bg-gray-900 text-gray-300 py-8 pt-32">
       <div className="container mx-auto px-6 lg:px-20">
         <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start">
           {/* Branding Section */}
